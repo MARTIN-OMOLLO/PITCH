@@ -11,5 +11,12 @@ class User(Usermixin,db,model):
     username = db.column(db.string(255), unique = True, nullable = False)
     email =  db.column(db.string(255), unique = True, nullable = False)
     secure_password = db.column(db.string(255), nullable = False)
+    bio = db.column(db.string(255))
+
+    pitches = db.relationship('Pitch',brackef='user',lazy='dynamic')
+    comment =  db.relationship('Comment',brackef='user',lazy='dynamic')
+    upvote =  db.relationship('Upvote',brackef='user',lazy='dynamic')
+    downvote =  db.relationship('Downvote',brackef='user',lazy='dynamic')
+
 
 
