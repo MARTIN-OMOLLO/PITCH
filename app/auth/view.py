@@ -16,7 +16,27 @@ def login():
         if user != none and user.verify_password(form.password.data)
         login_user(user,form.remember.data)
         db.session.add(user)
-        db.session.commit()
+        flash ('Username and Password are invalid')
         return redirect(url_for('auth.login'))
         title = "New Account"
-    return render_template('auth/register.html',registration_form = form)
+    return render_template('auth/login.html',loginform= form)
+
+
+    @auth.route('/signup',methods = ["GET","POST"])
+def signup():
+    form = RegisterForm():
+        if form.validate_on_submit:
+        user = User.query.filter_by(email = form.email.data, username = form.username.data,password = form.password.data)
+        print("the user instance", user)
+        return redirect(url_for('auth.login'))
+    return render_template('auth/signup.html',reg_form= form)
+
+
+    @auth.route('/logout',methods = ["GET","POST"])
+def logout():
+    form = LoginForm():
+        if form.validate_on_submit:
+        user = User.query.filter_by(email = form.email.data, username = form.username.data,password = form.password.data)
+        logout_user(user,form.remember.data)
+        return redirect(url_for('auth.login'))
+    return render_template('auth/logout.html',log_out= form)
