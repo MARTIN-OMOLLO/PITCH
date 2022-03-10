@@ -24,12 +24,12 @@ def login():
 
 @auth.route('/signup',methods = ["GET","POST"])
 def signup():
-    login_form = RegisterForm()
-    if login_form.validate_on_submit:
-        user = User.query.filter_by(email = login_form.email.data, username = login_form.username.data,password = login_form.password.data)
+    signup_form = RegistrationForm()
+    if signup_form.validate_on_submit:
+        user = User.query.filter_by(email = signup_form.email.data, username = signup_form.username.data,password = signup_form.password.data)
         print("the user instance", user)
         return redirect(url_for('auth.login'))
-    return render_template('auth/signup.html',reg_form= login_form)
+    return render_template('auth/signup.html',registrationform= signup_form)
 
 
 @auth.route('/logout',methods = ["GET","POST"])
