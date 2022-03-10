@@ -10,7 +10,7 @@ migrate = Migrate(app, db)
 manager.add_command('server', server)
 
 manager.add_command('db', MigrateCommand)
-# manager.add_command('server'server(use_debugger=True))
+
 
 @manager.shell
 def make_shell_context():
