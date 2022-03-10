@@ -10,33 +10,33 @@ from .. import db
 # ....
 @auth.route('/login',methods = ["GET","POST"])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit:
-        user = User.query.filter_by(email = form.email.data, username = form.username.data,password = form.password.data)
-        if user is not None and user.verify_password(form.password.data):
-            login_user(user,form.remember.data)
+    login_form = LoginForm()
+    if login_form.validate_on_submit:
+        user = User.query.filter_by(email = login_form.email.data,password = login_form.password.data)
+        if user is not None and login_form.password == login_form.password.data:
+            login_user(user,login_form.remember.data)
             db.session.add(user)
             flash ('Username and Password are invalid')
             return redirect(url_for('auth.login'))
     title = "New Account"
-    return render_template('auth/login.html',loginform= form)
+    return render_template('auth/login.html',login_form= login_form)
 
 
 @auth.route('/signup',methods = ["GET","POST"])
 def signup():
-    form = RegisterForm()
-    if form.validate_on_submit:
-        user = User.query.filter_by(email = form.email.data, username = form.username.data,password = form.password.data)
+    login_form = RegisterForm()
+    if login_form.validate_on_submit:
+        user = User.query.filter_by(email = login_form.email.data, username = login_form.username.data,password = login_form.password.data)
         print("the user instance", user)
         return redirect(url_for('auth.login'))
-    return render_template('auth/signup.html',reg_form= form)
+    return render_template('auth/signup.html',reg_form= login_form)
 
 
 @auth.route('/logout',methods = ["GET","POST"])
 def logout():
-    form = LoginForm()
-    if form.validate_on_submit:
-        user = User.query.filter_by(email = form.email.data, username = form.username.data,password = form.password.data)
-        logout_user(user,form.remember.data)
+    login_form = LoginForm()
+    if login_form.validate_on_submit:
+        user = User.query.filter_by(email = form.email.data, username = login_form.username.data,password = login_form.password.data)
+        logout_user(user,login_form.remember.data)
         return redirect(url_for('auth.login'))
-    return render_template('auth/logout.html',log_out= form)
+    return render_template('auth/logout.html',log_out= login_form)
