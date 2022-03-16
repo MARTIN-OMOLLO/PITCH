@@ -1,4 +1,6 @@
-# export MINUTE_KEY=<Your api key>
-# export SECRET_KEY=<Your secret key>
+export SECRET_KEY='pitchmartin'
 
-python3.9 manage.py server
+export MAIL_USERNAME='martinochieng1999@gmail.com'
+export MAIL_PASSWORD='MARtin1999@'
+export SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://martin:martin123@localhost/pitches'
+python3 manage.py server
