@@ -1,36 +1,37 @@
+import os  
 from flask import Flask
-from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
-from flask_bootstrap import Bootstrap
 from config import config_options
-bootstrap = Bootstrap()
+from flask_mail import Mail
+from flask_login import LoginManager, login_manager
+from flask_bootstrap import Bootstrap
+from flask_sqlalchemy import SQLAlchemy
+from flask_uploads import IMAGES, UploadSet,configure_uploads
 
 db = SQLAlchemy()
+mail = Mail()
+bootstrap = Bootstrap()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
-    #...
+photos = UploadSet('photos',IMAGES)
+
+#Create app instance
 def create_app(config_name):
-    app = Flask(__name__)
-    
-    #....
-    app.config.from_object(config_options[config_name])
-    config_options[config_name].init_app(app)
-    app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql+psycopg2://martin:MARtin1999@localhost/pitches'
-    
+  app = Flask(__name__)
+  app.config.from_object(config_options[config_name])
+  from .auth import auth as authentication_blueprint
+  from .main import main as main_blueprint
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+  #Registering bluenprints
+  app.register_blueprint(authentication_blueprint)
+  app.register_blueprint(main_blueprint)
 
-    #Initializing Flask Extensions
-    bootstrap.init_app(app)
-    db.init_app(app)
-    login_manager.init_app(app)
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
-    from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint)
+  #Initializing flask extensions
+  login_manager.init_app(app)
+  db.init_app(app)
+  bootstrap.init_app(app)
+  configure_uploads(app,photos)
+  mail.init_app(app)
 
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
-
-    return app 
-#....
+  return app
