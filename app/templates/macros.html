@@ -1,24 +1,31 @@
-{% macro showPitch(piches) %}
-<div class="pitch">
-  {% if piches %}
-  {% for pitch in piches %}
-  <h3 class="title">{{pitch.title}}</h3>
-  <p>{{pitch.post}}</p>
-  <p style="color:rgb(12, 241, 12)"  >Category: {{pitch.category}}</p>
-  <p style="color:rgb(12, 241, 12)"> Posted by: <span class="user">{{pitch.user.username}}</span> on: <small class="text-muted mr-2">{{ pitch.time.strftime('%Y-%m-%d') }}</small></p>
-  <div class="row actions">
-    <div class="col-md-4 comment">
-      <span>{{pitch.comment.count()}} <i class="fas fa-comment"></i> <a href="{{url_for('main.comment',pitch_id = pitch.id)}}">Add Comment</a></span>
+{% macro display(posts)%}
+
+
+
+
+
+{% for post in posts%}
+<div class="col-md-3">
+    <div class="card  mb-3" id="card1" style"">
+        <div class="card-header">{{post.title}}</div>
+        <div class="card-body">
+            <h5 class="card-title">{{post.category}}</h5>
+
+            <p class="card-text">{{post.added_date.strftime('%b %d, %Y')}}</p>
+            <p class="card-text">{{post.post}}</p>
+           
+            <a href="{{url_for('main.comment',post_id=post.id)}}" class="btn btn-secondary">Comments</a>
+            <a href="{{url_for('main.upvote',id=post.id)}}"><i class="far fa-thumbs-up "
+                    style="margin-right:25px"></i>{{post.upvote.count()}}</a>
+            <a href="{{url_for('main.downvote',id=post.id)}}"><i class="far fa-thumbs-down "
+                    style="margin-right:25px"></i>{{post.downvote.count()}}</a>
+
+        </div>
     </div>
-    <div class="col-md-4 upvote">
-      <span class="foot"> <a href="{{url_for('main.like',id = pitch.id)}}"><i class="fa fa-thumbs-up"></i> Upvotes: {{pitch.upvote.count()}}</a></span>
-    </div>
-    <div class="col-md-4 downvote">
-      <span class="foot"> <a href="{{url_for('main.dislike',id = pitch.id)}}"> <i class="fa fa-thumbs-down"></i> Downvotes: {{pitch.downvote.count()}}</a></span>
-    </div>    
-  </div>
-  {% endfor %}
-  {% endif %}
 </div>
+
+
+
+{% endfor %}
 
 {% endmacro %}
