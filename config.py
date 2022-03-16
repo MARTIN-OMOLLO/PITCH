@@ -1,4 +1,15 @@
-import os
+    Development  configuration child class
+
+    Args:
+        Config: The parent configuration class with General configuration settings
+    '''
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martin:martin123@localhost/pitches'
+    DEBUG = True
+
+config_options = {
+'development':DevConfig,
+'production':ProdConfig
+}mport os
 class Config:
     '''
     General configuration parent class
@@ -19,21 +30,9 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martin:MARtin1999@localhost/pitches'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATA_URL')
     
 
 
 class DevConfig(Config):
     '''
-    Development  configuration child class
-
-    Args:
-        Config: The parent configuration class with General configuration settings
-    '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martin:MARtin1999@localhost/pitches'
-    DEBUG = True
-
-config_options = {
-'development':DevConfig,
-'production':ProdConfig
-}
