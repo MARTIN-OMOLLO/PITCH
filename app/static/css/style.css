@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+
+body{
+    background-color: lightgreen;
+}
+
+nav {
+    background-color: lightgreen;
+}
+
+#card1{
+    background-color:b  lightgreen;
+    color:#fff;
+}
+
+#profile {
+    margin-top: 20px;
+    margin-left:40px ;
+}

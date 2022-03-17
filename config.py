@@ -35,7 +35,7 @@ class TestConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martin:MARtin1999@localhost/pitch'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martin:martin123@localhost/pitches'
     
 class DevConfig(Config):
     '''
@@ -43,7 +43,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martin:MARtin1999@localhost/pitch'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martin:martin123@localhost/pitches'
     DEBUG = True  
     
     

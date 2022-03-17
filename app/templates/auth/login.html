@@ -6,14 +6,14 @@
 <style>
 
   body{
-  background-color:#7c4d60;
+  background-color:lightgreen;
  }
 
 </style>
 
 
 
-<div class="container" style="background-color: #7c4d60;">
+<div class="container" style="background-color: lightgreen;">
   <div class="row">
 
     <div class="col-md-2"> </div>
@@ -31,7 +31,7 @@
 
       {{ wtf.quick_form(login_form) }}
 
-      <p> Don't  have an account?  <a href="{{url_for('auth.register')}}">Sign up here</a></p>
+      <p> Don't  have an account?  <a href="{{url_for('auth.signup')}}">Sign up here</a></p>
 
     </div>
 

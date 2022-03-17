@@ -1,4 +1,4 @@
- from flask import render_template, request, redirect, url_for, abort
+from flask import render_template, request, redirect, url_for, abort
 from flask.helpers import flash
 from . import main
 from .forms import UpdateProfile
@@ -78,7 +78,8 @@ def update_pic(uname):
 
 
 
-# @main.route('/user/<uname>/update',methods = ['GET','POST'])
+# @main.route('/user/<* Detected change in '/home/martin/Documents/MINUTE/app/main/views.py', reloading
+#  uname>/update',methods = ['GET','POST']
 # def update_profile(uname):
 #     user = User.query.filter_by(username = uname).first()
 #     if user is None:
