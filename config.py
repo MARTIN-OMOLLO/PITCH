@@ -2,7 +2,7 @@ import os
 
 class Config:
     #debug = True
-    SECRET_KEY = 'gaidi'
+    SECRET_KEY = 'pitches'
     
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
